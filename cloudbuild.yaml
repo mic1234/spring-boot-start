@@ -1,10 +1,10 @@
 steps:
-	- name: 'gcr.io/cloud-builders/mvn'
-	  args: 
-	  	- 'clean'
-		- 'spring-boot:build-image'
-		- '-Dspring-boot.build-image.imageName=gcr.io/solar-botany-297306/gs-spring-boot-start:$_IMAGE_VERSION'
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: 
+      - 'clean'
+      - 'spring-boot:build-image'
+      - '-Dspring-boot.build-image.imageName=gcr.io/solar-botany-297306/gs-spring-boot-start:$_IMAGE_VERSION'
 substitutions:
-    _IMAGE_VERSION: $BUILD_ID
+  _IMAGE_VERSION: $BUILD_ID
 images: 
-	- 'gcr.io/solar-botany-297306/gs-spring-boot-start:$_IMAGE_VERSION'
+  - 'gcr.io/solar-botany-297306/gs-spring-boot-start:$_IMAGE_VERSION'
