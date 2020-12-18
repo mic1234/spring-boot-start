@@ -12,4 +12,9 @@ public class ApplicationController {
 	public @ResponseBody String home() {
 		return "Hello World!";
 	}
+	
+	@RequestMapping(value="/endpoint2", method = RequestMethod.GET)
+	public @ResponseBody String endpoint2() {
+		return "endpoint2";
+	}
 }
