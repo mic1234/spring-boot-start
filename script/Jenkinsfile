@@ -38,7 +38,9 @@ spec:
 
     stage('Example Build') {
       steps {
-        sh 'mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=gcr.io/solar-botany-297306/gs-spring-boot-start:v4'
+        container('maven') {
+          sh 'mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=gcr.io/solar-botany-297306/gs-spring-boot-start:v4'
+        }
       }
     }
   }
