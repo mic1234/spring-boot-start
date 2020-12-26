@@ -14,10 +14,14 @@ spec:
     tty: true
     stdin: true
   - name: jnlpslave
-    image: jenkins/inbound-agent
+    image: jenkinsci/jnlp-slave
     imagePullPolicy: Always
     tty: true
-    workingDir: /home/jenkins/agent
+    command:
+     - /bin/bash
+     - -c
+     - cat
+    workingDir: /home/jenkins
     stdin: true
   restartPolicy: Never
 """
