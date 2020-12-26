@@ -13,6 +13,8 @@ spec:
     imagePullPolicy: Always
     tty: true
     stdin: true
+    command:
+      - cat
   - name: jnlp
     image: 'jenkins/inbound-agent:4.3-4-alpine'
     args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
@@ -21,10 +23,10 @@ spec:
     }
   }
 
-  tools {
-      maven 'maven363'
-      jdk 'jdk8'
-  }
+  // tools {
+  //     maven 'maven363'
+  //     jdk 'jdk8'
+  // }
 
   stages {
 
@@ -32,29 +34,30 @@ spec:
       steps {
         sh 'set'
         sh "echo OUTSIDE_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}"
+        
         container('maven') {
           sh 'echo MAVEN_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}'
           sh 'mvn -version'
         }
-        
+
       }
     }
 
-    stage ('Initialize') {
-      steps {
-        sh '''
-          echo "PATH = ${PATH}"
-          echo "M2_HOME = ${M2_HOME}"
-        '''
-      }
-    }
+    // stage ('Initialize') {
+    //   steps {
+    //     sh '''
+    //       echo "PATH = ${PATH}"
+    //       echo "M2_HOME = ${M2_HOME}"
+    //     '''
+    //   }
+    // }
 
-    stage('Example Build') {
-      steps {
-        container('maven') {
-          sh 'mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=gcr.io/solar-botany-297306/gs-spring-boot-start:v4'
-        }
-      }
-    }
+    // stage('Example Build') {
+    //   steps {
+    //     container('maven') {
+    //       sh 'mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=gcr.io/solar-botany-297306/gs-spring-boot-start:v4'
+    //     }
+    //   }
+    // }
   }
 }
