@@ -13,16 +13,9 @@ spec:
     imagePullPolicy: Always
     tty: true
     stdin: true
-  - name: jnlpslave
-    image: jenkinsci/jnlp-slave
-    imagePullPolicy: Always
-    tty: true
-    command:
-     - /bin/bash
-     - -c
-     - cat
-    workingDir: /home/jenkins
-    stdin: true
+  - name: jnlp
+    image: 'jenkins/inbound-agent:4.3-4-alpine'
+    args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
   restartPolicy: Never
 """
     }
@@ -34,6 +27,19 @@ spec:
   }
 
   stages {
+
+    stage('Run maven') {
+      steps {
+        sh 'set'
+        sh "echo OUTSIDE_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}"
+        container('maven') {
+          sh 'echo MAVEN_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}'
+          sh 'mvn -version'
+        }
+        
+      }
+    }
+
     stage ('Initialize') {
       steps {
         sh '''
