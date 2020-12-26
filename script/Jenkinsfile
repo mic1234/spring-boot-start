@@ -28,36 +28,49 @@ spec:
   //     jdk 'jdk8'
   // }
 
-  stages {
+  // stages {
 
+  //   stage('Run maven') {
+  //     steps {
+  //       sh 'set'
+  //       sh "echo OUTSIDE_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}"
+        
+  //       container('maven') {
+  //         sh 'echo MAVEN_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}'
+  //         sh 'mvn -version'
+  //       }
+
+  //     }
+  //   }
+
+  //   // stage ('Initialize') {
+  //   //   steps {
+  //   //     sh '''
+  //   //       echo "PATH = ${PATH}"
+  //   //       echo "M2_HOME = ${M2_HOME}"
+  //   //     '''
+  //   //   }
+  //   // }
+
+  //   // stage('Example Build') {
+  //   //   steps {
+  //   //     container('maven') {
+  //   //       sh 'mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=gcr.io/solar-botany-297306/gs-spring-boot-start:v4'
+  //   //     }
+  //   //   }
+  //   // }
+  // }
+
+  stages {
     stage('Run maven') {
       steps {
-        sh 'set'
-        sh "echo OUTSIDE_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}"
-        
         container('maven') {
-          sh 'echo MAVEN_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}'
           sh 'mvn -version'
         }
-
+        container('busybox') {
+          sh '/bin/busybox'
+        }
       }
     }
-
-    // stage ('Initialize') {
-    //   steps {
-    //     sh '''
-    //       echo "PATH = ${PATH}"
-    //       echo "M2_HOME = ${M2_HOME}"
-    //     '''
-    //   }
-    // }
-
-    // stage('Example Build') {
-    //   steps {
-    //     container('maven') {
-    //       sh 'mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=gcr.io/solar-botany-297306/gs-spring-boot-start:v4'
-    //     }
-    //   }
-    // }
   }
 }
