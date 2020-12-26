@@ -19,7 +19,21 @@ spec:
     }
   }
 
+  tools {
+      maven 'Maven 3.3.9'
+      jdk 'jdk8'
+  }
+
   stages {
+    stage ('Initialize') {
+      steps {
+        sh '''
+          echo "PATH = ${PATH}"
+          echo "M2_HOME = ${M2_HOME}"
+        '''
+      }
+    }
+
     stage('Example Build') {
       steps {
         sh 'mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=gcr.io/solar-botany-297306/gs-spring-boot-start:v4'
