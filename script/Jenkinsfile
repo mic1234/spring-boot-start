@@ -8,11 +8,13 @@ metadata:
   name: jenkins-agent
 spec:
   containers:
-  - name: kaniko
+  - name: maven
     image: gcr.io/cloud-builders/mvn
     imagePullPolicy: Always
     command:
-    - /busybox/cat
+    - /bin/bash
+    - -c
+    - ls
     tty: true
   restartPolicy: Never
 """
