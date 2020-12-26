@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-      label 'helm.sh/chart: jenkins-2.6.4'
+      label 'podlabel'
       yaml """
 kind: Pod
 metadata:
