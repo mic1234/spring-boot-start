@@ -11,11 +11,14 @@ spec:
   - name: maven
     image: gcr.io/cloud-builders/mvn
     imagePullPolicy: Always
-    command:
-    - /bin/bash
-    - -c
-    - ls
     tty: true
+    stdin: true
+  - name: jnlpslave
+    image: jenkins/inbound-agent
+    imagePullPolicy: Always
+    tty: true
+    workingDir: /home/jenkins/agent
+    stdin: true
   restartPolicy: Never
 """
     }
