@@ -42,7 +42,13 @@ spec:
     - /bin/bash
     - -c
     - |
+      !#/bin/bash
+      /builder/google-cloud-sdk/bin/gcloud auth activate-service-account 570540125283-compute@developer.gserviceaccount.com --key-file=/secret/kaniko-secret.json
+      /builder/google-cloud-sdk/bin/gcloud container clusters get-credentials application-cluster --zone us-east4-b
       while true; do date; sleep 1; done
+    volumeMounts:
+    - name: secret-vol
+      mountPath: /secret
   restartPolicy: Never
   volumes:
   - name: docker-socket
