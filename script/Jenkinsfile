@@ -65,7 +65,7 @@ spec:
     stage('Run maven') {
       steps {
         container('maven') {
-          sh 'mvn -version'
+          sh 'mvnw clean spring-boot:build-image -Dspring-boot.build-image.imageName=gcr.io/solar-botany-297306/gs-spring-boot-start:v2'
         }        
       }
     }
