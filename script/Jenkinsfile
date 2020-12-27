@@ -19,7 +19,7 @@ spec:
     image: 'jenkins/inbound-agent:4.3-4-alpine'
     args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:latest
+    image: gcr.io/kaniko-project/executor:debug
     command:
       - /busybox/cat
     volumeMounts:
