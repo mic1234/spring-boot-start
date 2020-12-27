@@ -23,9 +23,8 @@ spec:
     command:
       - --help
       - &&
-      - tail
-      - -f
-      - /dev/null
+      - |
+        tail -f /dev/null
     volumeMounts:
     - name: kaniko-secret
       mountPath: /secret
