@@ -53,6 +53,7 @@ spec:
           sh 'ls -al'
           sh 'pwd'
           sh 'docker build . --tag=gcr.io/solar-botany-297306/gs-spring-boot-docker:v2 --no-cache'
+          sh 'docker push gcr.io/solar-botany-297306/gs-spring-boot-docker:v2'
         }        
       }
     }
