@@ -49,6 +49,18 @@ spec:
     volumeMounts:
     - name: secret-vol
       mountPath: /secret
+  - name: helm
+    image: gcr.io/solar-botany-297306/helm
+    command:
+    - /bin/bash
+    - -c
+    - |
+      gcloud auth activate-service-account 570540125283-compute@developer.gserviceaccount.com --key-file=/secret/kaniko-secret.json
+      gcloud container clusters get-credentials application-cluster --zone us-east4-b
+      while true; do date; sleep 1; done
+    volumeMounts:
+    - name: secret-vol
+      mountPath: /secret
   restartPolicy: Never
   volumes:
   - name: docker-socket
@@ -80,6 +92,9 @@ spec:
           sh 'kubectl delete service spring-boot-start'
           sh 'kubectl run spring-boot-start --image gcr.io/solar-botany-297306/gs-spring-boot-docker@sha256:00ecfc56a25f2ab1a5da0227b7447c6d90c7a3d75e6555bc884712cfd15d2b07'
           sh 'kubectl expose deployment spring-boot-start --port 8080 --type LoadBalancer'
+        }
+        container('helm') {
+          sh 'helm search jenkins'         
         }        
       }
     }
