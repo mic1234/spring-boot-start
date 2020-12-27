@@ -33,9 +33,11 @@ spec:
     stage('Run maven') {
       steps {
         container('maven') {
+          sh 'ls -al'
           sh 'mvn clean package'
         }
         container('gcb-docker') {
+          sh 'ls -al'
           sh 'docker build -t gcr.io/solar-botany-297306/gs-spring-boot-docker:v2 .'
         }        
       }
