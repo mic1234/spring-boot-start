@@ -21,9 +21,9 @@ spec:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
     command:
-      - executor
+      - sh
       - |
-        --help && tail -f /dev/null
+        ls | more
     volumeMounts:
     - name: kaniko-secret
       mountPath: /secret
