@@ -94,7 +94,9 @@ spec:
           sh 'kubectl expose deployment spring-boot-start --port 8080 --type LoadBalancer'
         }
         container('helm') {
-          sh 'helm search jenkins'         
+          sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
+          sh 'helm repo update'
+          sh 'helm install my-sql bitnami/mysql --version 8.2.3'
         }        
       }
     }
