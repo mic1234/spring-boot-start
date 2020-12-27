@@ -51,12 +51,9 @@ spec:
           sh 'ls -al'
           sh 'pwd'
           sh 'docker build . --tag=gcr.io/solar-botany-297306/gs-spring-boot-docker:v2 --no-cache'
+          sh 'docker push gcr.io/solar-botany-297306/gs-spring-boot-docker:v2'
         }
-        container('kaniko') {
-          sh 'ls -al'
-          sh 'pwd'
-          sh 'executor --dockerfile=Dockerfile --context=dir://home/jenkins/agent/workspace/test1_spring-boot --destination=gcr.io/solar-botany-297306/gs-spring-boot-docker:v2'
-        }        
+            
       }
     }
   }
