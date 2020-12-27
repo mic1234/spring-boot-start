@@ -38,6 +38,7 @@ spec:
         }
         container('gcb-docker') {
           sh 'ls -al'
+          sh 'pwd'
           sh 'docker build -t gcr.io/solar-botany-297306/gs-spring-boot-docker:v2 .'
         }        
       }
