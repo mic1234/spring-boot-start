@@ -18,23 +18,25 @@ spec:
   - name: jnlp
     image: 'jenkins/inbound-agent:4.3-4-alpine'
     args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
-  - name: docker-container
-    image: gcr.io/cloud-builders/docker
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
     command:
-      - /bin/bash
-      - -c
-      - while true; do date; sleep 1; done
+      - --help
+      - &&
+      - tail
+      - -f
+      - /dev/null
     volumeMounts:
-    - mountPath: /var/run/docker.sock
-      name: docker-socket-volume
-    securityContext:
-      privileged: true
+    - name: kaniko-secret
+      mountPath: /secret
+    env:
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /secret/kaniko-secret.json
   restartPolicy: Never
   volumes:
-  - name: docker-socket-volume
-    hostPath:
-      path: /var/run/docker.sock
-      type: File
+  - name: kaniko-secret
+    secret:
+      secretName: kaniko-secret
 """
     }
   }
@@ -44,16 +46,13 @@ spec:
       steps {
         container('maven') {
           sh 'ls -al'
-          sh 'pwd'
           sh 'mvn clean package'
         }
-        container('docker-container') {
+        container('kaniko') {
           sh 'ls -al'
           sh 'pwd'
-          sh 'docker build . --tag=gcr.io/solar-botany-297306/gs-spring-boot-docker:v2 --no-cache'
-          sh 'docker push gcr.io/solar-botany-297306/gs-spring-boot-docker:v2'
-        }
-            
+          sh 'executor --dockerfile=Dockerfile --context=dir://home/jenkins/agent/workspace/test1_spring-boot --destination=gcr.io/solar-botany-297306/gs-spring-boot-docker:v2'
+        }        
       }
     }
   }
