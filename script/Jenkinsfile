@@ -18,16 +18,12 @@ spec:
   - name: jnlp
     image: 'jenkins/inbound-agent:4.3-4-alpine'
     args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:latest
-    volumeMounts:
-    - name: kaniko-secret
-      mountPath: /secret
-    env:
-    - name: GOOGLE_APPLICATION_CREDENTIALS
-      value: /secret/kaniko-secret.json
   - name: docker-container
     image: gcr.io/cloud-builders/docker
+    command:
+      - /bin/bash
+      - -c
+      - while true; do date; sleep 1; done
     volumeMounts:
     - mountPath: /var/run/docker.sock
       name: docker-socket-volume
@@ -35,9 +31,6 @@ spec:
       privileged: true
   restartPolicy: Never
   volumes:
-  - name: kaniko-secret
-    secret:
-      secretName: kaniko-secret
   - name: docker-socket-volume
     hostPath:
       path: /var/run/docker.sock
