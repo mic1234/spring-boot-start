@@ -61,6 +61,16 @@ spec:
     volumeMounts:
     - name: secret-vol
       mountPath: /secret
+  - name: helmfile
+    image: gcr.io/solar-botany-297306/helmfile
+    command:
+    - /bin/bash
+    - -c
+    - |
+      while true; do date; sleep 1; done
+    volumeMounts:
+    - name: secret-vol
+      mountPath: /secret
   restartPolicy: Never
   volumes:
   - name: docker-socket
@@ -77,6 +87,7 @@ spec:
       steps {
         container('maven') {
           sh 'ls -al'
+          sh 'pwd'
           sh 'mvn clean package'
         }
         container('docker') {
@@ -96,7 +107,11 @@ spec:
         container('helm') {
           sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
           sh 'helm repo update'
+          sh 'helm uninstall my-sql'
           sh 'helm install my-sql bitnami/mysql --version 8.2.3'
+        }
+        container('helmfile') {
+          sh 'helmfile -v'
         }        
       }
     }
