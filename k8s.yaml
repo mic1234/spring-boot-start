@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: spring-boot-start
+  name: spring-boot-start
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: spring-boot-start
+  template:
+    metadata:
+      labels:
+        run: spring-boot-start
+    spec:
+      containers:
+      - image: gcr.io/solar-botany-297306/gs-spring-boot-docker
+        imagePullPolicy: IfNotPresent
+        name: spring-boot-start
+        env:
+          - name: JAVA_TOOL_OPTIONS
+            value: -agentlib:jdwp=transport=dt_socket,address=9999,server=y,suspend=y
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 9999
+            protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: spring-boot-start
+  name: spring-boot-start
+  namespace: default
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+    name: application
+  - port: 9999
+    protocol: TCP
+    targetPort: 9999
+    name: debug
+  selector:
+    run: spring-boot-start
+  sessionAffinity: None
+  type: LoadBalancer

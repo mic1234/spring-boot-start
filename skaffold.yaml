@@ -1,0 +1,36 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+metadata:
+  name: spring-boot-start
+build:
+  tagPolicy:
+    customTemplate:
+      template: "{{.BAR}}_{{.FOO}}"
+      components:
+      - name: FOO
+        dateTime:
+          format: "2006-01-02_15-04-05.999_UTC"
+          timezone: "UTC"
+      - name: BAR
+        envTemplate:
+          template: "skaffold"
+  artifacts:
+  - image: gcr.io/solar-botany-297306/gs-spring-boot-docker
+    jib:
+      type: maven  
+deploy:
+  kubeContext: gke_solar-botany-297306_us-east4-b_application-cluster
+  kubectl:
+    manifests:
+    - k8s.yaml
+portForward:
+- resourceType: service
+  resourceName: spring-boot-start
+  namespace: default
+  port: 8080
+  localPort: 8080
+- resourceType: service
+  resourceName: spring-boot-start
+  namespace: default
+  port: 9999
+  localPort: 9999
