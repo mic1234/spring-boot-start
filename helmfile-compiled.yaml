@@ -1,0 +1,57 @@
+---
+#  Source: helmfile.yaml
+
+filepath: helmfile.yaml
+helmBinary: helm
+environments:
+  default:
+    missingFileHandler: Error
+helmDefaults:
+  kubeContext: gke_solar-botany-297306_us-east4-b_application-cluster
+  tillerless: true
+  verify: true
+  devel: false
+  wait: true
+  timeout: 600
+  recreatePods: false
+  force: false
+  atomic: false
+  historyMax: 10
+  createNamespace: true
+  skipDeps: false
+  tls: false
+repositories:
+- name: local
+  url: http://34.86.24.255:8080/
+commonLabels:
+  deployment-via: helmfile
+releases:
+- chart: local/spring-boot-start
+  version: 0.0.1
+  verify: true
+  wait: true
+  timeout: 60
+  recreatePods: false
+  force: false
+  installed: true
+  atomic: true
+  cleanupOnFail: false
+  historyMax: 10
+  createNamespace: true
+  missingFileHandler: Warn
+  name: sbs
+  namespace: default
+  labels:
+    app: spring-boot-start
+    deployment-via: helmfile
+  values:
+  - name: spring-boot-start2
+  tillerNamespace: tiller-namespace
+  tillerless: true
+  kubeContext: gke_solar-botany-297306_us-east4-b_application-cluster
+  tls: false
+  forceNamespace: ""
+  skipDeps: false
+templates: {}
+missingFileHandler: ""
+renderedvalues: {}
