@@ -1,0 +1,19 @@
+name: spring-boot-start
+namespace: default
+replicas: 1
+
+image:
+  registry: gcr.io/solar-botany-297306
+  repository: gs-spring-boot-docker
+  tag: helm-v1
+
+ports: 
+  application: 
+    port: 8080
+    protocol: TCP
+  debug: 
+    port: 9999
+    protocol: TCP
+
+service:
+  type: LoadBalancer

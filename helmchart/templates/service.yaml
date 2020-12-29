@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: {{ .Values.name }}
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: {{ .Values.ports.application.port }}
+    protocol: {{ .Values.ports.application.protocol }}
+    targetPort: {{ .Values.ports.application.port }}
+    name: application
+  - port: {{ .Values.ports.debug.port }}
+    protocol: {{ .Values.ports.debug.protocol }}
+    targetPort: {{ .Values.ports.debug.port }}
+    name: debug
+  selector:
+    run: {{ .Values.name }}
+  sessionAffinity: None
+  type: {{ .Values.service.type }}
