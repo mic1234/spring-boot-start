@@ -13,8 +13,8 @@ repositories:
 # In other words, unset values results in no flags passed to helm.
 # See the helm usage (helm SUBCOMMAND -h) for more info on default values when those flags aren't provided.
 helmDefaults:
-  tillerNamespace: tiller-namespace  #dedicated default key for tiller-namespace
-  tillerless: false                  #dedicated default key for tillerless
+  #tillerNamespace: tiller-namespace  #dedicated default key for tiller-namespace
+  tillerless: true                  #dedicated default key for tillerless
   kubeContext: gke_solar-botany-297306_us-east4-b_application-cluster          #dedicated default key for kube-context (--kube-context)
   cleanupOnFail: false               #dedicated default key for helm flag --cleanup-on-fail
   # additional and global args passed to helm (default "")
@@ -104,7 +104,7 @@ releases:
     # name of the tiller namespace (default "")
     tillerNamespace: tiller-namespace
     # if true, will use the helm-tiller plugin (default false)
-    tillerless: false
+    tillerless: true
     # enable TLS for request to Tiller (default false)
     tls: false
     # path to TLS CA certificate file (default "$HELM_HOME/ca.pem")
