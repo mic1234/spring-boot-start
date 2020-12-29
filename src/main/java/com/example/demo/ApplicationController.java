@@ -18,4 +18,10 @@ public class ApplicationController {
 		String s = "endpoint2";
 		return s;
 	}
+
+	@RequestMapping(value="/endpoint3", method = RequestMethod.GET)
+	public @ResponseBody String endpoint3() {
+		String s = "endpoint3";
+		return s;
+	}
 }
