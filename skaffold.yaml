@@ -10,7 +10,7 @@ build:
       - name: FOO
         dateTime:
           format: "2006-01-02_15-04-05.999_UTC"
-          timezone: "UTC"
+          timezone: "Local"
       - name: BAR
         envTemplate:
           template: "skaffold"
