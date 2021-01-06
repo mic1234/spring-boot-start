@@ -109,7 +109,9 @@ spec:
         container('helm') {
           sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
           sh 'helm repo update'
-          sh 'helm uninstall my-sql'
+          #sh 'helm uninstall my-sql'
+          sh "val=$(helm list | sed -n '2 p' | awk '{print $1}')"
+          sh "while [ ${#val} -gt 0 ]; do helm uninstall $val; val=$(helm list | sed -n '2 p' | awk '{print $1}'); done"
           sh 'helm install my-sql bitnami/mysql --version 8.2.3'
         }
         container('helmfile') {
