@@ -101,8 +101,10 @@ spec:
         }
         container('kubectl') {
           sh 'kubectl get all'
-          sh 'kubectl delete deployment spring-boot-start'
-          sh 'kubectl delete service spring-boot-start'
+          sh 'del1=$(kubectl delete deployment spring-boot-start)'
+          sh 'echo $del1'
+          sh 'del2=$(kubectl delete service spring-boot-start)'
+          sh 'echo $del2'
           sh 'kubectl run spring-boot-start --image gcr.io/solar-botany-297306/gs-spring-boot-docker@sha256:00ecfc56a25f2ab1a5da0227b7447c6d90c7a3d75e6555bc884712cfd15d2b07'
           sh 'kubectl expose deployment spring-boot-start --port 8080 --type LoadBalancer'
         }
