@@ -27,6 +27,8 @@ spec:
       mountPath: /var/run
   - name: docker
     image: docker:19.03.1
+    tty: true
+    stdin: true
     command:
     - sleep
     args:

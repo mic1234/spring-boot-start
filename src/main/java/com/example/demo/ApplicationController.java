@@ -24,4 +24,10 @@ public class ApplicationController {
 		String s = "endpoint3";
 		return s;
 	}
+
+	@RequestMapping(value="/endpoint4", method = RequestMethod.GET)
+	public @ResponseBody String endpoint4() {
+		String s = "endpoint4";
+		return s;
+	}
 }
