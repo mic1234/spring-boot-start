@@ -1,0 +1,23 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+apiVersion: v2
+name: spring-boot-start
+version: 0.0.1
+
+...
+files:
+  spring-boot-start-0.0.1.tgz: sha256:fbcecb715b48c93be15c34ff3a34ac0da3fd39f9501fc2d80f693ab8aa7f3f7a
+-----BEGIN PGP SIGNATURE-----
+
+wsDcBAEBCgAQBQJf62NLCRA360PivhNQ+gAAyxcMAMXNRJVvHOHpuciOg/tuBQG7
+81eFSQYk+ghpqUCsWCEScpncyci7cT1Y4l+LuDUUQ4+CUeBvctFw9ImXuzQjk2er
+tJnIGUwFqFCarvYd5ocegqX4yOAhnGwD/SKW5S0xcXD2ZdhdmTZJjwXi/Z39vKRH
+yLoc3QsEd5aBKdeZvhcc75CU5S65v3Tw9wLXu6g/AugjcuNwKoL5cyNvjgsXIn+p
+Tx1PQMVjaOQb1GzQ5z7PQBppPkm+/rdeUCNmvK8TZfd4g+MFhklKn9XKS4akb8vX
+paSTrnp9qUOxPLSRdh3PSs1NQ6aFipbDAv7lVhMTAWcDmUYmZsw2uh9XL248ENT/
+3N9pFITjRNPsF5i174C/whdXFIqHb7jLZf0dkoGitn5oIT14Y7N/gGzqGMNGMNhh
+0l8TqjHd4Cr49drHXAVpD96prwpVO81b731kIw/XBZzjDy2aZN8fPtcn2YvMn6X/
+42uaIjKEfxwUQXraAjMUsJhW2Ux+IbzOxL4FomI3qw==
+=PhSZ
+-----END PGP SIGNATURE-----
