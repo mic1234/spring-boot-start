@@ -107,13 +107,14 @@ spec:
           sh 'kubectl expose deployment spring-boot-start --port 8080 --type LoadBalancer'
         }
         container('helm') {
-          sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
-          sh 'helm repo update'
           //sh 'helm uninstall my-sql'
-          sh 'echo \\"{print \$1}\\" > temp1.txt'
-          sh 'val=$(helm list | sed -n \\"2 p\\" | awk -f temp1.txt)'
-          sh 'while [ ${#val} -gt 0 ]; do helm uninstall $val; val=$(helm list | sed -n \\"2 p\\" | awk -f temp1.txt ); done'
-          sh 'helm install my-sql bitnami/mysql --version 8.2.3'
+          sh '!#/bin/bash
+              helm repo add bitnami https://charts.bitnami.com/bitnami
+              helm repo update
+              echo \\"{print \$1}\\" > temp1.txt
+              val=$(helm list | sed -n \\"2 p\\" | awk -f temp1.txt)
+              while [ ${#val} -gt 0 ]; do helm uninstall $val; val=$(helm list | sed -n \\"2 p\\" | awk -f temp1.txt ); done
+              helm install my-sql bitnami/mysql --version 8.2.3'
         }
         container('helmfile') {
           sh 'helmfile -v'
