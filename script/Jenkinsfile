@@ -132,6 +132,7 @@ spec:
           sh 'echo ${dvar1}'
           sh 'echo ${dvar2}'
           sh 'echo ${pipi}'
+          sh 'echo ${env.BUILD_URL}'          
           sh 'echo ${env.dvar}'
           sh 'echo ${env.dvar1}'
           sh 'echo ${env.dvar2}'
