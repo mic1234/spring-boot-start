@@ -123,10 +123,13 @@ spec:
           sh 'helmfile -v'
           sh 'echo ${environment}'
           sh 'echo ${location}'
-          sh 'echo ${newvar}'
-          sh 'echo ${env.environment}'
-          sh 'echo ${env.location}'
-          sh 'echo ${env.newvar}'
+          sh 'echo ${newvar}'          
+          sh 'chmod 755 ./script/print.sh'
+          sh './script/print.sh'
+          sh 'echo "${env.environment}"'
+          sh 'echo "${env.location}"'
+          sh 'echo "${env.newvar}"'
+          sh '/'
         }        
       }
     }
