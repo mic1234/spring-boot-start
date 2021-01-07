@@ -83,7 +83,9 @@ spec:
 """
     }
   }
-
+  environment {
+    pipi = 'kiki'
+  }
   stages {
     stage('Run maven') {
       steps {
@@ -129,6 +131,7 @@ spec:
           sh 'echo ${dvar}'
           sh 'echo ${dvar1}'
           sh 'echo ${dvar2}'
+          sh 'echo ${pipi}'
           sh 'echo ${env.dvar}'
           sh 'echo ${env.dvar1}'
           sh 'echo ${env.dvar2}'
