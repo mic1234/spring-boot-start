@@ -133,12 +133,12 @@ spec:
           sh 'echo ${dvar2}'
           sh 'echo ${pipi}'
           echo "${env.BUILD_URL}"
-          sh 'echo ${env.dvar}'
-          sh 'echo ${env.dvar1}'
-          sh 'echo ${env.dvar2}'
-          sh 'echo ${env.environment}'
-          sh 'echo ${env.location}'
-          sh 'echo ${env.newvar}'
+          echo "${env.dvar}"
+          echo "${env.dvar1}"
+          echo "${env.dvar2}"
+          echo "${env.environment}"
+          echo "${env.location}"
+          echo "${env.newvar}"
         }        
       }
     }
