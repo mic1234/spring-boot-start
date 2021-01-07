@@ -121,6 +121,8 @@ spec:
         }
         container('helmfile') {
           sh 'helmfile -v'
+          sh 'echo ${environment}'
+          sh 'echo ${location}'
         }        
       }
     }
