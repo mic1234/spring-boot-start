@@ -132,6 +132,7 @@ spec:
           sh 'echo ${dvar1}'
           sh 'echo ${dvar2}'
           sh 'echo ${pipi}'
+          sh 'echo ${hehe}'
           echo "${env.BUILD_URL}"
           echo "${env.dvar}"
           echo "${env.dvar1}"
@@ -139,6 +140,7 @@ spec:
           echo "${env.environment}"
           echo "${env.location}"
           echo "${env.newvar}"
+          echo "${params.hehe}"
         }        
       }
     }
