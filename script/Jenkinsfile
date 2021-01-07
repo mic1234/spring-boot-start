@@ -112,9 +112,9 @@ spec:
               #!#/bin/bash
               helm repo add bitnami https://charts.bitnami.com/bitnami
               helm repo update
-              echo \\"{print \\\$1}\\" | tee temp1.txt
+              echo "{print \\\$1}" | tee temp1.txt
               val=$(helm list | sed -n \\"2 p\\" | awk -f temp1.txt)
-              echo \\"val= $val\\"
+              echo "val= $val"
               while [ ${#val} -gt 0 ]; do helm uninstall $val; val=$(helm list | sed -n \\"2 p\\" | awk -f temp1.txt ); done
               helm install my-sql bitnami/mysql --version 8.2.3
               '''
