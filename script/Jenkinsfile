@@ -122,17 +122,22 @@ spec:
               '''
         }
         container('helmfile') {
+          sh 'chmod 755 ./script/print.sh'
+          sh './script/print.sh'
+
           sh 'helmfile -v'
+
           sh 'echo ${environment}'
           sh 'echo ${location}'
           sh 'echo ${newvar}'          
-          sh 'chmod 755 ./script/print.sh'
-          sh './script/print.sh'
           sh 'echo ${dvar}'
           sh 'echo ${dvar1}'
           sh 'echo ${dvar2}'
           sh 'echo ${pipi}'
           sh 'echo ${hehe}'
+          sh 'echo ${kaka}'
+          sh 'echo ${koko}'
+
           echo "${env.BUILD_URL}"
           echo "${env.dvar}"
           echo "${env.dvar1}"
@@ -141,6 +146,8 @@ spec:
           echo "${env.location}"
           echo "${env.newvar}"
           echo "${params.hehe}"
+          echo "${env.kaka}"
+          echo "${env.koko}"
         }        
       }
     }
