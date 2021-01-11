@@ -25,8 +25,7 @@ pipeline {
           sh 'kubectl delete --ignore-not-found=true service spring-boot-start'
           sh 'kubectl create deployment spring-boot-start --image gcr.io/solar-botany-297306/gs-spring-boot-docker@sha256:00ecfc56a25f2ab1a5da0227b7447c6d90c7a3d75e6555bc884712cfd15d2b07'
           sh 'kubectl expose deployment spring-boot-start --port 8080 --type LoadBalancer'
-          sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
-          sh 'helm repo update'
+          sh 'helm init --debug'
           sh '''
               #!#/bin/bash
               helm repo add bitnami https://charts.bitnami.com/bitnami
