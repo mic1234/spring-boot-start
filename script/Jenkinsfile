@@ -28,7 +28,7 @@ pipeline {
           sh '#helm init --debug --stable-repo-url https://charts.bitnami.com/bitnami'
           sh '''
               #!#/bin/bash
-              #helm repo add bitnami https://charts.bitnami.com/bitnami
+              helm repo add bitnami https://charts.bitnami.com/bitnami
               helm repo update
               echo "{print \\\$1}" | tee temp1.txt
               val=$(helm list | sed -n "2 p" | awk -f temp1.txt)
