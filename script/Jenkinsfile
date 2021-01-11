@@ -18,6 +18,8 @@ pipeline {
           sh 'docker build . --tag=gcr.io/solar-botany-297306/gs-spring-boot-docker:v2 --no-cache'
           sh 'docker login -u _json_key -p "$(cat /secret/kaniko-secret.json)" http://gcr.io/'
           sh 'docker push gcr.io/solar-botany-297306/gs-spring-boot-docker:v2'
+          sh 'gcloud auth activate-service-account 570540125283-compute@developer.gserviceaccount.com --key-file=/secret/kaniko-secret.json'
+          sh 'gcloud container clusters get-credentials application-cluster --zone us-east4-b'
           sh 'kubectl get all'
           sh 'kubectl delete --ignore-not-found=true deployment spring-boot-start'
           sh 'kubectl delete --ignore-not-found=true service spring-boot-start'
