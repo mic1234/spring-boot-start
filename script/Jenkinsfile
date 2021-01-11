@@ -10,26 +10,19 @@ pipeline {
   stages {
     stage('Run maven') {
       steps {
-        container('maven') {
           sh 'ls -al'
           sh 'pwd'
           sh 'mvn clean package'
-        }
-        container('docker') {
           sh 'ls -al'
           sh 'pwd'
           sh 'docker build . --tag=gcr.io/solar-botany-297306/gs-spring-boot-docker:v2 --no-cache'
           sh 'docker login -u _json_key -p "$(cat /secret/kaniko-secret.json)" http://gcr.io/'
           sh 'docker push gcr.io/solar-botany-297306/gs-spring-boot-docker:v2'
-        }
-        container('kubectl') {
           sh 'kubectl get all'
           sh 'kubectl delete --ignore-not-found=true deployment spring-boot-start'
           sh 'kubectl delete --ignore-not-found=true service spring-boot-start'
           sh 'kubectl run spring-boot-start --image gcr.io/solar-botany-297306/gs-spring-boot-docker@sha256:00ecfc56a25f2ab1a5da0227b7447c6d90c7a3d75e6555bc884712cfd15d2b07'
           sh 'kubectl expose deployment spring-boot-start --port 8080 --type LoadBalancer'
-        }
-        container('helm') {
           //sh 'helm uninstall my-sql'
           sh '''
               #!#/bin/bash
@@ -41,8 +34,6 @@ pipeline {
               while [ ${#val} -gt 0 ]; do helm uninstall $val; val=$(helm list | sed -n "2 p" | awk -f temp1.txt ); done
               helm install my-sql bitnami/mysql --version 8.2.3
               '''
-        }
-        container('helmfile') {
           sh 'chmod 755 ./script/print.sh'
           sh './script/print.sh'
 
@@ -69,7 +60,6 @@ pipeline {
           echo "params.hehe = ${params.hehe}"
           echo "env.kaka = ${env.kaka}"
           echo "env.koko = ${env.koko}"
-        }        
       }
     }
   }
